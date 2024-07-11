@@ -68,6 +68,12 @@
   --radius-16: 16px;
   --radius-24: 24px;
   --radius-36: 36px;
+
+  /*
+    * TRANSITION
+ */
+ --transition-short: 250ms ease;
+ --transition-long: 500ms ease;
 }
 
 
