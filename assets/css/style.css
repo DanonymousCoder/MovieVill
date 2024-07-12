@@ -201,9 +201,11 @@ body {
   align-items: center;
   gap: 8px;
 }
+
 .header .logo {
   margin-inline-end: auto;
 }
+/*
 .search-btn,
 .menu-btn {
   padding: 12px;
@@ -211,6 +213,8 @@ body {
 .search-btn {
   background-color: var(--banner-background);
   border-radius: var(--radius-8);
+  border: 3px solid white;
+  width: 55px;
 }
 .search-btn img {
   opacity: 0.5;
@@ -285,6 +289,7 @@ body {
 .search-wrapper:focus-within .leading-icon {
   opacity: 0;
 }
+*/
 
 /*-----------------------------------*\
   #SIDEBAR
