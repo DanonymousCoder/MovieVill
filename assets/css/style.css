@@ -183,7 +183,7 @@ body {
   0%{transform: rotate(0);}
   100%{transform: rotate(1turn);}
 }
-}
+ 
 
 
 
@@ -205,11 +205,12 @@ body {
 .header .logo {
   margin-inline-end: auto;
 }
-/*
+
 .search-btn,
 .menu-btn {
   padding: 12px;
 }
+
 .search-btn {
   background-color: var(--banner-background);
   border-radius: var(--radius-8);
