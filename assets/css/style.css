@@ -205,8 +205,6 @@ body {
 
 .title-large {
   font-size: var(--fs-title-lg);
-  font-weight: var(--weight-bold);
-  letter-spacing: 0.5px;
 }
 
 .img-cover {
@@ -535,7 +533,7 @@ body {
 */
 
 .banner {
-  position: fixed;
+  position: relative;
   height: 700px;
   border-radius: var(--radius-24);
   overflow: hidden;
