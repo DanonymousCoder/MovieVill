@@ -247,7 +247,8 @@ body {
   background-image: url(../images/poster-bg-icon.png);
 }
 
-.poster-box {
+.poster-box,
+.video-card {
   background-repeat: no-repeat;
   background-size: 50px;
   background-color: var(--banner-background);
@@ -604,9 +605,6 @@ body {
   box-shadow: var(--shadow-1);
 }
 
-.slider-control .slider-item {
-
-}
 
 
 /*-----------------------------------*\
