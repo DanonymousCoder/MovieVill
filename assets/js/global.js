@@ -2,12 +2,13 @@
 
 
 
-/*
-    * Add event listener on multiple elements
+/** 
+* Add event listener on multiple elements
 */
 
 const addEventOnElements = function (elements, eventType, callback) {
-    for (const elem of elements)  elem.addEventListener(eventType, callback);
+  
+    for (const elem of elements) elem.addEventListener(eventType, callback);
 }
 
 /**
@@ -15,8 +16,8 @@ const addEventOnElements = function (elements, eventType, callback) {
  */
 
 const searchBox = document.querySelector("[search-box]");
-const searchTogglers = document.querySelector("[search-toggler]");
+const searchTogglers = document.querySelectorAll("[search-toggler]");
 
 addEventOnElements(searchTogglers, "click", function () {
-    searchBox.classList.toggle("active");
-})
+    searchBox.classList.add("active");
+});

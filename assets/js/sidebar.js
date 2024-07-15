@@ -18,7 +18,7 @@ export function sidebar () {
         const sidebarInner = document.createElement("div");
         sidebarInner.classList.add("sidebar-inner");
 
-        sidebarInner.innerHtml = html`
+        sidebarInner.innerHTML = `
             <div class="sidebar-list">
                 <p class="title">Genre</p>
 
@@ -59,8 +59,7 @@ export function sidebar () {
                     // link.setAttribute("onclick", `getMovieList("with_genres=${genreId}", "${genreName}")`);
                     link.textContent = genreName;
 
-                    sidebarInner.querySelectorAll("sidebar-list")[0]
-                    .appendChild(link);
+                    sidebarInner.querySelectorAll(".sidebar-list")[0].appendChild(link);
 
                 }
 
