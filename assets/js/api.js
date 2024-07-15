@@ -14,3 +14,5 @@ const fetchDataFromServer = function(url, callback, optionalParam) {
     .then(response => response.json())
     .then(data => callback(data, optionalParam));
 }
+
+export { imageBaseUrl, api_key, fetchDataFromServer}
