@@ -51,7 +51,7 @@ const heroBanner = function({ results : movieList}) {
     banner.classList.add("banner");
     banner.ariaLabel = "Popular Movies";
 
-    banner.innerHTML = html`
+    banner.innerHTML = `
             <div class="banner-slider">
 
                 <div class="slider-item active" slider-item>
@@ -62,15 +62,7 @@ const heroBanner = function({ results : movieList}) {
             </div>
 
             <div class="slider-control">
-                <div class="control-inner">
-
-                    <button class="poster-box slider-item">
-                        <img src="./assets/images/slider-control.jpg" 
-                        alt="Slide to Puss in Boots: The Last Wish" 
-                        loading="lazy" draggable="false" class="img-cover">
-                    </button>
-
-                </div>
+                <div class="control-inner"></div>
             </div>
     `;
 
@@ -105,7 +97,7 @@ const heroBanner = function({ results : movieList}) {
                         </h2>
 
                         <div class="meta-list">
-                            <div class="meta-item">${release_date.splt("-")[0]}</div>
+                            <div class="meta-item">${release_date.split("-")[0]}</div>
 
                             <div class="meta-item card-badge">${vote_average.toFixed(1)}</div>
                         </div>
@@ -123,8 +115,59 @@ const heroBanner = function({ results : movieList}) {
 
                     </div>
 
-        `
+        `;
+        banner.querySelector(".banner-slider").appendChild(sliderItem);
+
+
+        const controlItem = document.createElement("button");
+        controlItem.classList.add("poster-box", "slider-item");
+        controlItem.setAttribute("slider-control", `${controlItemIndex}`);
+        
+        controlItemIndex++;
+
+        controlItem.innerHTML = `
+            <img src="${imageBaseUrl}w154${poster_path}" 
+            alt="Slide to ${title}" loading="lazy" draggable="false" 
+            class="img-cover">
+        `;
+        banner.querySelector(".control-inner").appendChild(controlItem);
+
 
     }
+
+    pageContent.appendChild(banner);
+
+    addHeroSlide();
+}
+
+
+/**
+ *  Hero slider functionality
+ */
+
+const addHeroSlide = function() {
+
+    const sliderItems = document.querySelectorAll("[slider-item]");
+    const sliderControls = document.querySelectorAll("[slider-control]");
+
+    let lastSliderItem = sliderItems[0];
+    let lastSliderControl  = sliderControls[0];
+
+    lastSliderItem.classList.add("active");
+    lastSliderControl.classList.add("active");
+
+    const sliderStart = function() {
+        lastSliderItem.classList.remove("active");
+        lastSliderControl.classList.remove("active");
+
+        // `this` == slider-control
+        sliderItems[Number(this.getAttribute("slider-control"))].classList.add("active");
+        this.classList.add("active");
+
+        lastSliderItem = sliderItems[Number(this.getAttribute("slider-control"))];
+        lastSliderControl = this;
+    }
+
+    addEventOnElements(sliderControls, "click", sliderStart);
 
 }
