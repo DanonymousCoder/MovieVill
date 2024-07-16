@@ -17,7 +17,36 @@ sidebar();
 const getGenres = function(genreList) {
     const newGenreList = [];
 
-    for (const { name } of genreList) 
+    for (const { name } of genreList) newGenreList.push(name);
+
+    return newGenreList.join(", ")
+}
+
+const getCasts = function(castList) {
+    const newCastList = [];
+
+    for (let i = 0, len = costList.length; i < len && i < 10; i++) {
+        const { name } = castList[i];
+        newCastList.push(name);
+    }
+
+    return newCastList.join(", ");
+}
+
+const getDirectors = function (crewList) {
+
+    const directors = crewlist.filter(({ job }) => job == "Director");
+
+    const directorList [];
+    for (const { name } of directors) directorList.push(name);
+
+    return directorList.join(", ");
+}
+
+// returns only all trailers as array
+const filterVideos = function (videoList) {
+    return videoList.filter(({ type, site }) => (type == "Trailer" ||  type == "Teaser") 
+    && site == "YouTube");
 }
 
 fetchDataFromServer(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&append_to_response=casts,videos,images,releases`, function(movie) {
@@ -80,26 +109,20 @@ fetchDataFromServer(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api
 
                 <p class="genre">${getGenres(genres)}</p>
 
-                <p class="overview">
-                    Puss in Boots discovers that his passion for adventure has taken its toll: He has burned through eight of his nine lives, leaving him with only one life left. Puss sets out on an epic journey to find the mythical Last Wish and restore his nine lives.
-                </p>
+                <p class="overview">${overview}</p>
 
                 <ul class="detail-list">
 
                     <div class="list-item">
                         <p class="list-name">Starring</p>
 
-                        <p>
-                            Letitia Wright, Lupita Nyong'o, Danai Gurira, Winston Duke, Dominique Thorne, Tenoch Huerta Mejía, Angela Bassett, Florence Kasumba, Michaela Coel, Mabel Cadena
-                        </p>
+                        <p>${getCasts(cast)}</p>
                     </div>
 
                     <div class="list-item">
                         <p class="list-name">Directed By</p>
 
-                        <p>
-                            Ryan Coogler
-                        </p>
+                        <p>${getDirectors(crew)}</p>
                     </div>
 
                 </ul>
@@ -112,20 +135,21 @@ fetchDataFromServer(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api
             </div>
 
             <div class="slider-list">
-                <div class="slider-inner">
-
-                    <div class="video-card"></div>
-
-                    <div class="video-card"></div>
-
-                    <div class="video-card"></div>
-
-                    <div class="video-card"></div>
-
-                </div>
+                <div class="slider-inner"></div>
             </div>
 
            </div>
-    `
+    `;
+
+    for (const { key, name } of filterVideos((videos))) {
+
+        const videoCard = document.createElement("div");
+        videoCard.classList.add("video-card");
+
+        videoCard.innerHTML = html `
+            
+        `
+
+    }
 
 })
