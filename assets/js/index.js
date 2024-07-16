@@ -6,6 +6,7 @@
 
 import{ sidebar } from "./sidebar.js";
 import {api_key, imageBaseUrl, fetchDataFromServer } from "./api.js";
+import { createMovieCard } from "./movie-card.js";
 
 const pageContent = document.querySelector("[page-content]");
 
@@ -209,7 +210,44 @@ const createMovieList = function({ results: movieList }, title) {
     movielistElem.ariaLabel = `${title}`;
 
     movieListElem.innerHTML = html`
-        
-    `
+          <div class="title-wrapper">
+                <h3 class="title-large">${title}</h3>
+            </div>
+
+            <div class="slider-list">
+                <div class="slider-inner">
+
+                    <div class="movie-card">
+                        <figure class="poster-box card-banner">
+                            <img src="./assets/images/slider-control.jpg" alt="Puss in Boots: The Last Wish"
+                            class="img-cover">
+                        </figure>
+
+                        <h4 class="title">Puss in Boots: The Last Wish</h4>
+
+                        <div class="meta-list">
+                            <div class="meta-item">
+                                <img src="./assets/images/star.png" width="20"
+                                height="20" loading="lazy" alt="rating">
+
+                                <span class="span">8.4</span>
+                            </div>
+
+                            <div class="card-badge">2022</div>
+                        </div>
+
+                        <a href="./detail.html" class="card-btn" title="Puss in Boots: The Last Wish"></a>
+
+                    </div>
+
+                   
+                </div>
+            </div>
+
+    `;
+
+    for (const movie of movieList) {
+        const movieCard = createMovieCard(movie); // called from movie_card.js
+    }
 
 }
