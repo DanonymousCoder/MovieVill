@@ -11,6 +11,26 @@ const pageContent = document.querySelector("[page-content]");
 
 sidebar();
 
+
+ /**
+ *  Home ppage sections (Top rated, Upcoming, Trending movies)
+*/
+
+const homePageSections = [
+    {
+        title: "Upcoming Movies",
+        path: "/movie/upcoming",
+    },
+    {
+        title: "Today\'s Trending Movies",
+        path: "/trending/movie/week"
+    },
+    {
+        title: "Today\'s Trending Movies",
+        path: "/movie/top_rated"
+    }
+]
+
     /**
      *  fetch all genres e.g: [ { "id": "123", "name": "Action" }]
      * then change genre format e.g: { 123: "Action" }
@@ -138,6 +158,16 @@ const heroBanner = function({ results : movieList}) {
     pageContent.appendChild(banner);
 
     addHeroSlide();
+
+/**
+ *  fetch data for home page sections (top rated, upcoming, trending)
+*/
+
+for (const { title, path } of homePageSections) {
+    fetchDataFromServer(`https://api.themoviedb.org/3${path}?api_key=${api_key}
+    &page=1`, createMovieList, title);
+}
+
 }
 
 
@@ -169,5 +199,17 @@ const addHeroSlide = function() {
     }
 
     addEventOnElements(sliderControls, "click", sliderStart);
+
+}
+
+const createMovieList = function({ results: movieList }, title) {
+
+    const movielistElem = document.createElement("section");
+    movielistElem.classList.add("movie-list");
+    movielistElem.ariaLabel = `${title}`;
+
+    movieListElem.innerHTML = html`
+        
+    `
 
 }
