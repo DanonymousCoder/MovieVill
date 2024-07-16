@@ -11,7 +11,38 @@ const pageContent = document.querySelector("[page-content]");
 
 sidebar();
 
-fetchDataFromServer(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&page=1`, heroBanner);
+    /**
+     *  fetch all genres e.g: [ { "id": "123", "name": "Action" }]
+     * then change genre format e.g: { 123: "Action" }
+     */
+    const genreList = {
+
+        // create genre string from genre_id  e.g: [23, 43] -> "Action, Romance".
+
+        asString(genreIdList) {
+            let newGenreList = [];
+
+            for (const genreId of genreIdList) {
+                this[genreId] && newGenreList.push(this[genreId]); // this == genreList;
+            }
+
+            return newGenreList.join(", ");
+        }
+
+    };
+
+    fetchDataFromServer(`https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}`, 
+        function( { genres }) {
+            for (const { id, name } of genres) {
+                genreList[id] = name;
+            }
+
+            fetchDataFromServer(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&page=1`, heroBanner);
+
+        });
+
+
+
 
 
 const heroBanner = function({ results : movieList}) {
@@ -62,29 +93,26 @@ const heroBanner = function({ results : movieList}) {
         sliderItem.classList.add("slider-item");
         sliderItem.setAttribute("slider-item", "");
 
-        sliderItem.innerHTML = html`
-               <img src="./assets/images/slider-banner.jpg" 
-                    alt="Puss in Boots: The Last Wish" class="img-cover"
-                    loading="eager"> 
+        sliderItem.innerHTML = `
+               <img src="${imageBaseUrl}w1280${backdrop_path}" 
+                    alt="${title}" class="img-cover"
+                    loading="index === 0 ? "eager": "lazy"> 
 
                     <div class="banner-content">
 
                         <h2 class="heading">
-                            Puss in Boots: The Last Wish
+                            ${title}
                         </h2>
 
                         <div class="meta-list">
-                            <div class="meta-item">2022</div>
+                            <div class="meta-item">${release_date.splt("-")[0]}</div>
 
-                            <div class="meta-item card-badge">7.5</div>
+                            <div class="meta-item card-badge">${vote_average.toFixed(1)}</div>
                         </div>
 
-                        <p class="genre">Animation, Action, Adventure</p>
+                        <p class="genre">${genreList.asString(genre_ids)}</p>
 
-                        <p class="banner-text">
-                            Puss in Boots discovers that his passion for adventure has taken its toll: He has burned through eight of his nine lives, leaving him with only one life left. 
-                            Puss sets out on an epic journey to find the mythical Last Wish and restore his nine lives.
-                        </p>
+                        <p class="banner-text">${overview}</p>
 
                         <a href="./detail.html" class="btn">
                             <img src="./assets/images/play_circle.png" width="24"
