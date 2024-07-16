@@ -21,3 +21,15 @@ const searchTogglers = document.querySelectorAll("[search-toggler]");
 addEventOnElements(searchTogglers, "click", function () {
     searchBox.classList.add("active");
 });
+
+
+
+
+/**
+ *  store movieId in 'localStorge' when you click any movie card
+ */
+
+
+const getMovieDetail = function(movieId) {
+    window.localStorage.setItem("movieId", String(movieId));
+}
