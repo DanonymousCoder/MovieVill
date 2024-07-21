@@ -25,7 +25,7 @@ const getGenres = function(genreList) {
 const getCasts = function(castList) {
     const newCastList = [];
 
-    for (let i = 0, len = costList.length; i < len && i < 10; i++) {
+    for (let i = 0, len = castList.length; i < len && i < 10; i++) {
         const { name } = castList[i];
         newCastList.push(name);
     }
@@ -35,9 +35,9 @@ const getCasts = function(castList) {
 
 const getDirectors = function (crewList) {
 
-    const directors = crewlist.filter(({ job }) => job == "Director");
+    const directors = crewList.filter(({ job }) => job == "Director");
 
-    const directorList [];
+    const directorList = [];
     for (const { name } of directors) directorList.push(name);
 
     return directorList.join(", ");
@@ -141,23 +141,53 @@ fetchDataFromServer(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api
            </div>
     `;
 
-    for (const { key, name } of filterVideos((videos))) {
+    for (const { key, name } of filterVideos(videos)) {
 
         const videoCard = document.createElement("div");
         videoCard.classList.add("video-card");
 
         videoCard.innerHTML = `
-            <iframe width="500" height="294" src ="https://www.youtube.com
-            /embed/${key}?&theme=dark&color=white&rel=0" frameborder="0" 
-            allowfullscreen="1" title="${name}" class="img-cover" loading="lazy">
+            <iframe width="500" height="294" src ="https://www.youtube.com/embed/${key}?&theme=dark&color=white&rel=0" 
+            frameborder="0" allowfullscreen="1" title="${name}" class="img-cover" loading="lazy">
             </iframe>
         `;
 
-        movieDetail.querySelector(".slider-inner").appendChild
-        (videoCard);
+        movieDetail.querySelector(".slider-inner").appendChild(videoCard);
 
     }
 
     pageContent.appendChild(movieDetail);
 
-})
+    fetchDataFromServer(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=
+        ${api_key}&page=1`, addSuggestedMovies);
+
+});
+
+
+
+const addSuggestedMovies = function({ results: movieList }, title) {
+
+    const movieListElem = document.createElement("section");
+    movieListElem.classList.add("movie-list");
+    movieListElem.setAttribute('aria-label', "You May Also Like");
+
+    movieListElem.innerHTML = `
+          <div class="title-wrapper">
+                <h3 class="title-large">You May Also Like</h3>
+            </div>
+
+            <div class="slider-list">
+                <div class="slider-inner"></div>
+            </div>
+
+    `; 
+
+    for (const movie of movieList) {
+        const movieCard = createMovieCard(movie); // called from movie_card.js
+    
+        movieListElem.querySelector(".slider-inner").appendChild(movieCard);
+    };
+
+    pageContent.appendChild(movieListElem);
+
+}
